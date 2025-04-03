@@ -22,7 +22,7 @@ const Clock = () => {
   const [selectedTimezone, setSelectedTimezone] = useState("America/New_York");
   const [primaryColor, setPrimaryColor] = useState("#80f6ff");
   const [secondaryColor, setSecondaryColor] = useState("#fffb2c");
-  const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     document.documentElement.style.setProperty("--primary-color", primaryColor);
@@ -71,7 +71,7 @@ const Clock = () => {
 
   return (
     <div className="clock-wrapper">
-      <div className="theme-toggle">
+      <div className="theme-toggle" onClick={() => toggleDarkMode(!isDarkMode)}>
         <DarkModeSwitch
           checked={isDarkMode}
           onChange={toggleDarkMode}

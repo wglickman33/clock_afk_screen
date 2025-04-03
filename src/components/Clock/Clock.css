@@ -1,11 +1,14 @@
 :root {
   --primary-color: #80f6ff;
+  --primary-color-rgb: 128, 246, 255;
   --secondary-color: #fffb2c;
+  --secondary-color-rgb: 255, 251, 44;
   --bg-color: #000000;
   --text-color: #ffffff;
   --control-bg: rgba(0, 0, 0, 0.8);
   --control-border: #333;
   --input-bg: #222;
+  --theme-toggle-hover-bg: rgba(40, 40, 40, 0.9);
 }
 
 .light-mode {
@@ -14,6 +17,7 @@
   --control-bg: rgba(255, 255, 255, 0.9);
   --control-border: #cccccc;
   --input-bg: #e0e0e0;
+  --theme-toggle-hover-bg: rgba(220, 220, 220, 0.95);
 }
 
 body {
@@ -44,6 +48,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(var(--primary-color-rgb, 128, 246, 255), 0.5);
+  background-color: var(--theme-toggle-hover-bg, rgba(40, 40, 40, 0.9));
 }
 
 .clock {
