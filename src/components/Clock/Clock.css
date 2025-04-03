@@ -1,86 +1,191 @@
+:root {
+  --primary-color: #80f6ff;
+  --secondary-color: #fffb2c;
+}
+
+.clock-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+}
+
 .clock {
-    width: 100%;
-    max-width: 800px;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
 @property --i {
-    syntax: "<angle>";
-    inherits: false;
-    initial-value: 0deg;
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
 }
 
 .clock__container {
-    position: relative;
-    width: 160px;
-    height: 160px;
-    margin: 0 20px;
-    border-radius: 16px;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: repeating-conic-gradient(
-      from var(--i),
-      #80f6ff 0%,
-      #80f6ff 5%,
-      transparent 5%,
-      transparent 40%,
-      #80f6ff 50%
-    );
-    animation: anim 4s linear infinite;
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 20px;
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: repeating-conic-gradient(
+    from var(--i),
+    var(--primary-color) 0%,
+    var(--primary-color) 5%,
+    transparent 5%,
+    transparent 40%,
+    var(--primary-color) 50%
+  );
+  animation: anim 4s linear infinite;
 }
 
 .clock__container .clock__time {
-    font-size: 70px;
-    font-weight: 800;
-    line-height: 85px;
-    z-index: 1;
+  font-size: 70px;
+  font-weight: 800;
+  line-height: 85px;
+  z-index: 1;
 }
 
 .clock__container .clock__unit {
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    z-index: 1;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  z-index: 1;
 }
 
 .clock__container::before {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 100%;
-    background: repeating-conic-gradient(
-      from var(--i),
-      #fffb2c 0%,
-      #fffb2c 5%,
-      transparent 5%,
-      transparent 40%,
-      #fffb2c 50%
-    );
-    border-radius: 16px;
-    animation: anim 4s linear infinite;
-    animation-delay: -1s;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: repeating-conic-gradient(
+    from var(--i),
+    var(--secondary-color) 0%,
+    var(--secondary-color) 5%,
+    transparent 5%,
+    transparent 40%,
+    var(--secondary-color) 50%
+  );
+  border-radius: 16px;
+  animation: anim 4s linear infinite;
+  animation-delay: -1s;
 }
 
 @keyframes anim {
-    0% {
-      --i: 0deg;
-    }
-    100% {
-      --i: 360deg;
-    }
+  0% {
+    --i: 0deg;
+  }
+  100% {
+    --i: 360deg;
+  }
 }
 
 .clock__container::after {
-    position: absolute;
-    content: "";
-    inset: 4px;
-    background: #000;
-    border: 4px solid #1b1b1b;
-    border-radius: 14px;
+  position: absolute;
+  content: "";
+  inset: 4px;
+  background: #000;
+  border: 4px solid #1b1b1b;
+  border-radius: 14px;
+}
+
+.controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border: 1px solid #333;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  color: white;
+  backdrop-filter: blur(5px);
+}
+
+.timezone-selector,
+.color-pickers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.color-pickers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.color-picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+select {
+  background-color: #222;
+  color: white;
+  border: 1px solid #444;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+@media (max-width: 900px) {
+  .clock {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 20px 0;
+  }
+  
+  .clock__container {
+    margin: 10px;
+  }
+  
+  .controls {
+    position: static;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 800px;
+  }
 }
