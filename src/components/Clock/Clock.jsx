@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { DarkModeSwitch } from "react-toggle-dark-mode";
 import "./Clock.css";
 
 const TIMEZONES = [
@@ -21,6 +22,7 @@ const Clock = () => {
   const [selectedTimezone, setSelectedTimezone] = useState("America/New_York");
   const [primaryColor, setPrimaryColor] = useState("#80f6ff");
   const [secondaryColor, setSecondaryColor] = useState("#fffb2c");
+  const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
 
   useEffect(() => {
     document.documentElement.style.setProperty("--primary-color", primaryColor);
@@ -28,7 +30,19 @@ const Clock = () => {
       "--secondary-color",
       secondaryColor
     );
-  }, [primaryColor, secondaryColor]);
+
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark-mode");
+      document.documentElement.classList.remove("light-mode");
+    } else {
+      document.documentElement.classList.add("light-mode");
+      document.documentElement.classList.remove("dark-mode");
+    }
+  }, [primaryColor, secondaryColor, isDarkMode]);
+
+  const toggleDarkMode = (checked) => {
+    setIsDarkMode(checked);
+  };
 
   useEffect(() => {
     const updateTime = () => {
@@ -57,6 +71,15 @@ const Clock = () => {
 
   return (
     <div className="clock-wrapper">
+      <div className="theme-toggle">
+        <DarkModeSwitch
+          checked={isDarkMode}
+          onChange={toggleDarkMode}
+          size={30}
+          sunColor="#FDB813"
+          moonColor="#FFF"
+        />
+      </div>
       <div className="clock">
         <div className="clock__container">
           <span className="clock__time hours">{time.hours}</span>
@@ -74,7 +97,6 @@ const Clock = () => {
           <span className="clock__time meridiem">{time.meridiem}</span>
         </div>
       </div>
-
       <div className="controls">
         <div className="timezone-selector">
           <label htmlFor="timezone">Timezone:</label>
@@ -90,7 +112,6 @@ const Clock = () => {
             ))}
           </select>
         </div>
-
         <div className="color-pickers">
           <div className="color-picker">
             <label htmlFor="primary-color">Primary Color:</label>
@@ -101,7 +122,6 @@ const Clock = () => {
               onChange={(e) => setPrimaryColor(e.target.value)}
             />
           </div>
-
           <div className="color-picker">
             <label htmlFor="secondary-color">Secondary Color:</label>
             <input
